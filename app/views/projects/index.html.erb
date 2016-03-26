@@ -1,0 +1,9 @@
+<% if @projects.empty? %>
+  <p>New to CrowdFlower? Click here to get started on a new project.</p>
+<% else %>
+  <ul id="projects-list">
+    <% @projects.each do |project| %>
+      <li><%= project.name%></li>
+    <% end %>
+  </ul>
+<% end %>
