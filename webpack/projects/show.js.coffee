@@ -1,3 +1,4 @@
+require('stylesheets/projects/workflow.scss')
 joint = require('jointjs')
 
 class Workflow

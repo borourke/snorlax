@@ -20,7 +20,9 @@ var config = {
     loaders: [
       { test: /\.coffee$/, loader: 'coffee-loader' },
       { test: /jquery\.js$/, loader: 'expose?$' },
-      { test: /jquery\.js$/, loader: 'expose?jQuery' }
+      { test: /jquery\.js$/, loader: 'expose?jQuery' },
+      { test: /\.css$/, loaders: ["style", "css"] },
+      { test: /\.scss$/, loaders: ["style", "css", "sass"] }
     ]
   },
 
@@ -37,7 +39,7 @@ var config = {
 
   resolve: {
     root: path.join(__dirname, '..', 'webpack'),
-    extensions: ['', '.js', '.coffee']
+    extensions: ['', '.js', '.coffee', '.css', '.scss']
   },
 
   plugins: [
