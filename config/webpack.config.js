@@ -19,6 +19,8 @@ var config = {
   module: {
     loaders: [
       { test: /\.coffee$/, loader: 'coffee-loader' },
+      { test: /jquery\.js$/, loader: 'expose?$' },
+      { test: /jquery\.js$/, loader: 'expose?jQuery' }
     ]
   },
 
@@ -50,7 +52,8 @@ var config = {
     }),
     new webpack.ProvidePlugin({
       $: 'jquery',
-      jQuery: 'jquery'
+      jQuery: 'jquery',
+      "window.jQuery": "jquery"
     })
   ]
 };
