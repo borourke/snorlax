@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root 'projects#index'
 
+  resources :projects, only: [:show]
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
