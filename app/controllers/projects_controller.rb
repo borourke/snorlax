@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
   def index
-    @projects = Project.all.order(updated_at: :desc)
+    @projects = Project.format_json_for_index.map{ |project| {project.first => project.second}}
   end
 end

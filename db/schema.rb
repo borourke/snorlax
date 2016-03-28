@@ -11,12 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160325223746) do
+ActiveRecord::Schema.define(version: 20160328155645) do
 
   create_table "jobs", force: :cascade do |t|
-    t.string "alias"
-    t.string "akon_id"
-    t.text   "formatted_webhook_uri"
+    t.string  "alias"
+    t.string  "akon_id"
+    t.text    "formatted_webhook_uri"
+    t.string  "job_type"
+    t.integer "project_id"
   end
 
   create_table "projects", force: :cascade do |t|
