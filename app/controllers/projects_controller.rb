@@ -6,4 +6,13 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
   end
+
+  def new
+    @project = Project.new
+  end
+
+  def create
+    Project.create(params[:project])
+    redirect_to root_path
+  end
 end
