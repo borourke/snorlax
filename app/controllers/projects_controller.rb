@@ -12,7 +12,14 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    Project.create(params[:project])
+    p projects_params
+    Project.create(projects_params)
     redirect_to root_path
+  end
+
+  private
+
+  def projects_params
+    params.permit(:name, :akon_id)
   end
 end
