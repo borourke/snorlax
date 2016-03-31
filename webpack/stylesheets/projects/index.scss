@@ -1,0 +1,16 @@
+.project-index-wrapper {
+  .job-progress-holder {
+    margin-left: 3em;
+
+    .progress-bar {
+      background-color: #3DB682;
+      min-width: 10%;
+      a {
+        color: #FAFBFC;
+        &:hover, &:active {
+          color: #34495E;
+        }
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-<div class='container-fluid index-wrapper'>
+<div class='container-fluid project-index-wrapper'>
   <div class='row'>
     <div class='col-xs-10'>
       <h3>Welcome to Snorlax, who sat on Mew and Gluestick</h3>
@@ -10,14 +10,27 @@
         <p>You don't have any projects. click <%= link_to 'here', projects_new_path %> to create one.</p>
       <% else %>
         <%= link_to 'New Project', projects_new_path, class: 'btn btn-primary' %>
-        <br>
-        <ul class='list-group'>
+        <hr>
+        <div class='list-group'>
           <% @projects.each do |project| %>
-            <li class='list-group-item'>
-              <%= project %>
-            </li>
+            <div class='list-group-item'>
+              <%= link_to project.keys.first, "/project/#{project.values[0][:id]}", class: 'btn btn-link' %>
+              <% if project.values[0][:jobs].count > 0 %>
+                <% project.values[0][:jobs].each do |job| %>
+                  <div class='job-progress-holder'>
+                    <div class='progress'>
+                      <div class='progress-bar' style='width: <%= job[1] %>%'>
+                        <%= link_to "#{job[0]} - #{job[1]}%", "https://make.crowdflower.com/jobs/#{job[0]}" %>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              <% else %>
+                <p> This project has no jobs. </p>
+              <% end %>
+            </div>
           <% end %>
-        </ul>
+        </div>
       <% end %>
     </div>
   </div>
