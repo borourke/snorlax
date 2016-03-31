@@ -2,4 +2,4 @@
 <%= @fields %>
 <%= link_to 'Upload Units', new_dataset_path(@project.id) %>
 
-<div id='workflow-container'></div>
+<%= render partial: 'flowchart' %>

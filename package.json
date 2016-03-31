@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "license": "MIT",
   "dependencies": {
+    "bootstrap": "^3.3.6",
+    "file-loader": "^0.8.5",
     "stats-webpack-plugin": "^0.2.1",
     "webpack": "^1.9.11",
     "webpack-dev-server": "^1.9.0"
@@ -15,6 +17,8 @@
     "jointjs": "^0.9.7",
     "jquery": "^2.2.2",
     "jquery-ujs": "^1.2.1",
+    "less": "^2.6.1",
+    "less-loader": "^2.2.3",
     "node-sass": "^3.4.2",
     "sass-loader": "^3.2.0",
     "style-loader": "^0.13.1"

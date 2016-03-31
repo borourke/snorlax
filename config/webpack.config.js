@@ -22,7 +22,13 @@ var config = {
       { test: /jquery\.js$/, loader: 'expose?$' },
       { test: /jquery\.js$/, loader: 'expose?jQuery' },
       { test: /\.css$/, loaders: ["style", "css"] },
-      { test: /\.scss$/, loaders: ["style", "css", "sass"] }
+      { test: /\.scss$/, loaders: ["style", "css", "sass"] },
+      { test: /\.less$/, loaders: ["style", "css", "less"] },
+      { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
+      { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
+      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
+      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
+      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "file" }
     ]
   },
 
@@ -39,7 +45,7 @@ var config = {
 
   resolve: {
     root: path.join(__dirname, '..', 'webpack'),
-    extensions: ['', '.js', '.coffee', '.css', '.scss']
+    extensions: ['', '.js', '.coffee', '.css', '.scss', '.less']
   },
 
   plugins: [
