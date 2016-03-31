@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160331191622) do
+ActiveRecord::Schema.define(version: 20160331205309) do
 
   create_table "datasets", force: :cascade do |t|
     t.string "file_path"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20160331191622) do
     t.text    "value"
     t.integer "transformation_id"
     t.string  "operation"
+    t.integer "project_id"
   end
 
   create_table "transformations", force: :cascade do |t|

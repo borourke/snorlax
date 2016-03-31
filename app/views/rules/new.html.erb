@@ -1,0 +1,13 @@
+<% if !@rules.nil? %>
+<% @rules.each do |rule| %>
+  <%= rule.starting_job_id %> <%= rule.field %> <%= rule.operation %> <%= rule.value %> <%= rule.ending_job_id %>
+<% end %>
+<% end %>
+<%= form_for :rule do |f| %>
+  Starting Job: <%= f.select :starting_job_id, @project.jobs.pluck(:alias) %>
+  Field: <%= f.select :field, @fields, { include_blank: true } %>
+  Operator: <%= f.select :operation, @operators, { include_blank: true } %>
+  Value: <%= f.text_field :value %>
+  Ending Job: <%= f.select :starting_job_id, @project.jobs.pluck(:alias) %>
+  <%= f.submit %>
+<% end %>

@@ -9,7 +9,8 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
-    @fields = @project.jobs.first.fields
+    @jobs = @project.jobs
+    @rules = @project.rules
   end
 
   def new

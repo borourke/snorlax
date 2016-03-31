@@ -1,5 +1,7 @@
 <h3><%= @project.name %></h3>
-<%= @fields %>
+<%= @jobs %>
+<%= @rules %>
 <%= link_to 'Upload Units', new_dataset_path(@project.id) %>
+<%= link_to 'New Rule', new_rule_path(@project.id) %>
 
 <%= render partial: 'flowchart' %>

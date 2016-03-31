@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'projects#index'
 
-  # Jobs
+  # Projects
   get 'projects' => 'projects#index'
   get 'projects/:id' => 'projects#show', as: :project
   get 'projects/new' => 'projects#new'
@@ -12,7 +12,14 @@ Rails.application.routes.draw do
   get 'projects/:id/datasets/new' => 'projects#new_dataset', as: :new_dataset
   post 'projects/:id/datasets/new' => 'projects#create_dataset'
 
-  # Takes an array of job_ids as a params object, to be used in controller
-  get 'jobs/percent_complete' => 'jobs#percent_complete'
-  get 'jobs/new' => 'jobs#new'
+  # Jobs
+  get 'projects/:id/jobs/new' => 'jobs#new'
+  post 'projects/:id/jobs/new' => 'jobs#create'
+
+  # Rules
+  get 'projects/:id/rules/new' => 'rules#new', as: :new_rule
+  post 'projects/:id/rules/new' => 'rules#create', as: :create_rule
+
+  # Incoming units
+  post 'unit_completion' => 'webhooks#receive_units', as: :receive_units
 end
