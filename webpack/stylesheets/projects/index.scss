@@ -1,10 +1,14 @@
-.project-index-wrapper {
+#project-index-wrapper {
+
+  .placeholder {
+    margin-left: 3em;
+  }
   .job-progress-holder {
     margin-left: 3em;
 
     .progress-bar {
       background-color: #3DB682;
-      min-width: 10%;
+      min-width: 8%;
       a {
         color: #FAFBFC;
         &:hover, &:active {
