@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160328155645) do
+ActiveRecord::Schema.define(version: 20160331191622) do
+
+  create_table "datasets", force: :cascade do |t|
+    t.string "file_path"
+  end
 
   create_table "jobs", force: :cascade do |t|
     t.string  "alias"
@@ -19,6 +23,7 @@ ActiveRecord::Schema.define(version: 20160328155645) do
     t.text    "formatted_webhook_uri"
     t.string  "job_type"
     t.integer "project_id"
+    t.boolean "starting_job"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -34,6 +39,7 @@ ActiveRecord::Schema.define(version: 20160328155645) do
     t.text    "field"
     t.text    "value"
     t.integer "transformation_id"
+    t.string  "operation"
   end
 
   create_table "transformations", force: :cascade do |t|
@@ -47,6 +53,7 @@ ActiveRecord::Schema.define(version: 20160328155645) do
     t.text    "field"
     t.text    "value"
     t.integer "unit_id"
+    t.integer "project_id"
   end
 
   create_table "units", force: :cascade do |t|

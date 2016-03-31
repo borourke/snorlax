@@ -1,6 +1,6 @@
 class Job < ActiveRecord::Base
   def percent_complete
-    client.jobs.find(self.job_alias).stats(:percent_complete)
+    client.jobs.find(self.alias).stats(:percent_complete)
   rescue
     0
   end
@@ -11,7 +11,12 @@ class Job < ActiveRecord::Base
     end
   end
 
+  def fields
+    job = client.jobs.find(self.alias)
+    job.quality_settings[:confidence_fields]
+  end
+
   def client
-    @client ||= Crowdkit.new(access_token: "VwGBjS71PjAgzZiD4sZj", api_endpoint: "https://api.sandbox.cf3.us/v2")
+    @client ||= Crowdkit.new(access_token: "af574018a6b7360b924c210c41d1f263e264cf83", api_endpoint: "https://api.sandbox.cf3.us/v2")
   end
 end

@@ -5,6 +5,7 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+    @fields = @project.jobs.first.fields
   end
 
   def new
@@ -12,9 +13,18 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    p projects_params
     Project.create(projects_params)
     redirect_to root_path
+  end
+
+  def new_dataset
+    @dataset = Dataset.new
+  end
+
+  def create_dataset
+    project = Project.find(params[:id])
+    project.upload_data(params[:dataset][:file_path])
+    redirect_to project_path(project.id)
   end
 
   private

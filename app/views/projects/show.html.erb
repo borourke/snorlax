@@ -1,3 +1,5 @@
 <h3><%= @project.name %></h3>
+<%= @fields %>
+<%= link_to 'Upload Units', new_dataset_path(@project.id) %>
 
 <div id='workflow-container'></div>

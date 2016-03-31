@@ -7,4 +7,8 @@ class JobsController < ApplicationController
   def show
     @project = Project.find(params[:id])
   end
+
+  def new
+    @job = Job.new
+  end
 end
