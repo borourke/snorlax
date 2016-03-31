@@ -2,7 +2,7 @@
 <%= @jobs %>
 <%= @rules %>
 <%= link_to 'Upload Units', new_dataset_path(@project.id) %>
-<%= link_to 'New Rule', new_rule_path(@project.id) %>
+<button type='button' data-target='#new-rule-modal' class='btn btn-primary' data-toggle='modal'>New Rule</button>
 
 <%= render partial: 'flowchart' %>
 <%= render 'new_rule_modal' %>
