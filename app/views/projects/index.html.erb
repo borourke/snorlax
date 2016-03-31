@@ -9,7 +9,7 @@
       <% if @projects.empty? %>
         <p class='placeholder'>You don't have any projects. click <%= link_to 'here', projects_new_path %> to create one.</p>
       <% else %>
-        <%= link_to 'New Project', projects_new_path, class: 'btn btn-primary' %>
+        <button type='button' data-target='#new-project-modal' class='btn btn-primary' data-toggle='modal'>New Project</button>
         <hr>
         <div class='list-group'>
           <% @projects.each do |project| %>
@@ -34,4 +34,5 @@
       <% end %>
     </div>
   </div>
+  <%= render 'new_project_modal' %>
 </div>

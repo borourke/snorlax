@@ -49,4 +49,5 @@ group :development do
   gem 'spring'
 end
 
+gem 'simple_form'
 gem 'foreman'
