@@ -1,14 +1,24 @@
-<div class="container-fluid index-wrapper">
-  <div class="row">
-    <%= link_to 'New Project', projects_new_path %>
+<div class='container-fluid index-wrapper'>
+  <div class='row'>
+    <div class='col-xs-10'>
+      <h3>Welcome to Snorlax, who sat on Mew and Gluestick</h3>
+    </div>
   </div>
-  <% if @projects.empty? %>
-    <p>New to CrowdFlower? Click here to get started on a new project.</p>
-  <% else %>
-    <ul id="projects-list">
-      <% @projects.each do |project| %>
-        <li><%= project %></li>
+  <div class='row'>
+    <div class='col-xs-10'>
+      <% if @projects.empty? %>
+        <p>You don't have any projects. click <%= link_to 'here', projects_new_path %> to create one.</p>
+      <% else %>
+        <%= link_to 'New Project', projects_new_path, class: 'btn btn-primary' %>
+        <br>
+        <ul class='list-group'>
+          <% @projects.each do |project| %>
+            <li class='list-group-item'>
+              <%= project %>
+            </li>
+          <% end %>
+        </ul>
       <% end %>
-    </ul>
-  <% end %>
+    </div>
+  </div>
 </div>
