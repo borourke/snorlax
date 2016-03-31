@@ -1,10 +1,14 @@
-<%= link_to 'New Project', projects_new_path %>
-<% if @projects.empty? %>
-  <p>New to CrowdFlower? Click here to get started on a new project.</p>
-<% else %>
-  <ul id="projects-list">
-    <% @projects.each do |project| %>
-      <li><%= project %></li>
-    <% end %>
-  </ul>
-<% end %>
+<div class="container-fluid index-wrapper">
+  <div class="row">
+    <%= link_to 'New Project', projects_new_path %>
+  </div>
+  <% if @projects.empty? %>
+    <p>New to CrowdFlower? Click here to get started on a new project.</p>
+  <% else %>
+    <ul id="projects-list">
+      <% @projects.each do |project| %>
+        <li><%= project %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
