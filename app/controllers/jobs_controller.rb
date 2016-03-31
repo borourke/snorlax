@@ -11,4 +11,15 @@ class JobsController < ApplicationController
   def new
     @job = Job.new
   end
+
+  def create
+
+  end
+
+  private
+
+  def jobs_params
+    params[:job][:project_id] = params[:id]
+    params.require(:job).permit(:alias)
+  end
 end
