@@ -3,6 +3,7 @@
 <head>
   <title>Snorlax</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application' %>
   <%= javascript_include_tag *webpack_asset_paths("application") %>
   <% if Rails.env.development? %>
     <script src="http://localhost:3808/webpack-dev-server.js"></script>
