@@ -58,6 +58,8 @@
 
 	__webpack_require__(9);
 
+	__webpack_require__(10);
+
 	window.flo || (window.flo = {});
 
 	flo.Workflow = (function(superClass) {
@@ -189,6 +191,8 @@
 
 	__webpack_require__(5);
 
+	__webpack_require__(11);
+
 	window.flo || (window.flo = {});
 
 	flo.Chart = (function() {
@@ -215,8 +219,7 @@
 	  Chart.prototype.addNode = function(node) {
 	    this.nodes.push(node);
 	    node.chart = this;
-	    this.fg.addChild(node.shape);
-	    this.stage.update();
+	    this.addChild(node);
 	    return node.on('pressmove', this.onDrag);
 	  };
 
@@ -230,6 +233,11 @@
 	  Chart.prototype.addEdge = function(edge) {
 	    this.edges.push(edge);
 	    this.fg.addChildAt(edge.shape, 0);
+	    return this.stage.update();
+	  };
+
+	  Chart.prototype.addChild = function(child) {
+	    this.fg.addChild(child.shape);
 	    return this.stage.update();
 	  };
 
@@ -287,10 +295,24 @@
 	window.flo || (window.flo = {});
 
 	flo.Label = (function() {
-	  function Label(name) {
-	    this.shape = new createjs.Text(name, "14px Arial");
-	    this.shape.x = this.shape.getMeasuredWidth() / -2;
-	    this.shape.y = this.shape.getMeasuredHeight() / -2;
+	  function Label(text, options) {
+	    if (options == null) {
+	      options = {
+	        font: "14px Arial",
+	        color: "#000",
+	        align: "center",
+	        rotation: 0
+	      };
+	    }
+	    this.shape = new createjs.Text(text, options.font, options.color);
+	    if (options.rotation) {
+	      this.shape.rotation = options.rotation;
+	      this.shape.x = 40;
+	      this.shape.y = 10;
+	    } else if (options.align === 'center') {
+	      this.shape.x = this.shape.getMeasuredWidth() / -2;
+	      this.shape.y = this.shape.getMeasuredHeight() / -2;
+	    }
 	  }
 
 	  return Label;
@@ -313,14 +335,35 @@
 	  function Edge(nodeA, nodeB) {
 	    this.nodeA = nodeA;
 	    this.nodeB = nodeB;
+	    this.NODE_OFFSET = 1.2;
+	    this.calc();
 	    Edge.__super__.constructor.call(this);
 	    this.nodeA.addEdge(this);
 	    this.nodeB.addEdge(this);
 	  }
 
+	  Edge.prototype.calc = function() {
+	    this.start = {
+	      x: this.nodeA.x,
+	      y: this.nodeA.y
+	    };
+	    this.end = {
+	      x: this.nodeB.x,
+	      y: this.nodeB.y
+	    };
+	    this.distX = this.end.x - this.start.x;
+	    this.distY = this.end.y - this.start.y;
+	    this.dist = Math.sqrt(Math.pow(this.distX, 2) + Math.pow(this.distY, 2));
+	    this.start.x += this.nodeA.radius / this.dist * this.distX * this.NODE_OFFSET;
+	    this.start.y += this.nodeA.radius / this.dist * this.distY * this.NODE_OFFSET;
+	    this.end.x -= this.nodeB.radius / this.dist * this.distX * this.NODE_OFFSET;
+	    return this.end.y -= this.nodeB.radius / this.dist * this.distY * this.NODE_OFFSET;
+	  };
+
 	  Edge.prototype.draw = function() {
 	    Edge.__super__.draw.call(this);
-	    return this.bg.graphics.beginStroke('black').moveTo(this.nodeA.x, this.nodeA.y).lineTo(this.nodeB.x, this.nodeB.y);
+	    this.calc();
+	    return this.bg.graphics.beginStroke('black').moveTo(this.start.x, this.start.y).lineTo(this.end.x, this.end.y);
 	  };
 
 	  return Edge;
@@ -345,6 +388,7 @@
 	    this.x = x;
 	    this.y = y;
 	    this.chart = null;
+	    this.radius = 40;
 	    Node.__super__.constructor.call(this);
 	    this.edges = [];
 	    this.shape.x = this.x;
@@ -353,7 +397,7 @@
 
 	  Node.prototype.draw = function() {
 	    Node.__super__.draw.call(this);
-	    return this.bg.graphics.beginStroke('black').beginFill('white').drawCircle(0, 0, 40);
+	    return this.bg.graphics.beginStroke('black').beginFill('white').drawCircle(0, 0, this.radius);
 	  };
 
 	  Node.prototype.addEdge = function(edge) {
@@ -431,14 +475,17 @@
 	  function Route(nodeA, nodeB) {
 	    this.nodeA = nodeA;
 	    this.nodeB = nodeB;
+	    this.arrow = new flo.Arrow(this);
 	    Route.__super__.constructor.call(this, this.nodeA, this.nodeB);
+	    this.addChild(this.arrow);
 	  }
 
 	  Route.prototype.draw = function() {
 	    if (this.gate) {
 	      this.gate.draw();
 	    }
-	    return Route.__super__.draw.call(this);
+	    Route.__super__.draw.call(this);
+	    return this.arrow.draw();
 	  };
 
 	  Route.prototype.addGate = function(name) {
@@ -522,6 +569,75 @@
 	  return Job;
 
 	})(flo.Node);
+
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	var extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+	  hasProp = {}.hasOwnProperty;
+
+	window.flo || (window.flo = {});
+
+	flo.Start = (function(superClass) {
+	  extend(Start, superClass);
+
+	  function Start() {
+	    Start.__super__.constructor.call(this, this.name, 0, 0);
+	  }
+
+	  Start.prototype.draw = function() {
+	    var label;
+	    Start.__super__.draw.call(this);
+	    this.bg.graphics.beginFill('white').drawRect(0, 0, 40, 400);
+	    label = new flo.Label("Start", {
+	      font: "24px Arial",
+	      rotation: 90
+	    });
+	    return this.addChild(label);
+	  };
+
+	  return Start;
+
+	})(flo.Node);
+
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	var extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+	  hasProp = {}.hasOwnProperty;
+
+	window.flo || (window.flo = {});
+
+	flo.Arrow = (function(superClass) {
+	  extend(Arrow, superClass);
+
+	  function Arrow(edge, size) {
+	    this.edge = edge;
+	    this.size = size != null ? size : 10;
+	    Arrow.__super__.constructor.call(this);
+	  }
+
+	  Arrow.prototype.draw = function() {
+	    var angle;
+	    Arrow.__super__.draw.call(this);
+	    if (this.edge.end) {
+	      this.shape.x = this.edge.end.x;
+	      this.shape.y = this.edge.end.y;
+	      angle = Math.atan2(this.edge.distY, this.edge.distX);
+	      this.shape.rotation = 180 * angle / Math.PI + 135;
+	      this.bg.graphics.beginStroke('#000');
+	      this.bg.graphics.moveTo(0, 0).lineTo(this.size, 0);
+	      return this.bg.graphics.moveTo(0, 0).lineTo(0, this.size);
+	    }
+	  };
+
+	  return Arrow;
+
+	})(flo.Sprite);
 
 
 /***/ }

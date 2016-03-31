@@ -14,7 +14,7 @@
         <div class='list-group'>
           <% @projects.each do |project| %>
             <div class='list-group-item project-holder'>
-              <h4><%= link_to project.keys.first, "/project/#{project.values[0][:id]}" %></h4>
+              <h4><%= link_to project.keys.first, project_path(project.values[0][:id]) %></h4>
               <% if project.values[0][:jobs].count > 0 %>
                 <% project.values[0][:jobs].each do |job| %>
                   <div class='job-progress-holder'>
