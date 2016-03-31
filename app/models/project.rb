@@ -13,7 +13,6 @@ class Project < ActiveRecord::Base
       end
     end
   end
-<<<<<<< HEAD
 
   def upload_data(file_path)
     starting_jobs = jobs.where(starting_job: true)

@@ -1,32 +1,32 @@
-<div class='container-fluid project-index-wrapper'>
+<div class='container-fluid' id='project-index-wrapper'>
   <div class='row'>
-    <div class='col-xs-10'>
+    <div class='col-xs-10 col-xs-offset-1'>
       <h3>Welcome to Snorlax, who sat on Mew and Gluestick</h3>
     </div>
   </div>
   <div class='row'>
-    <div class='col-xs-10'>
+    <div class='col-xs-10 col-xs-offset-1'>
       <% if @projects.empty? %>
-        <p>You don't have any projects. click <%= link_to 'here', projects_new_path %> to create one.</p>
+        <p class='placeholder'>You don't have any projects. click <%= link_to 'here', projects_new_path %> to create one.</p>
       <% else %>
         <%= link_to 'New Project', projects_new_path, class: 'btn btn-primary' %>
         <hr>
         <div class='list-group'>
           <% @projects.each do |project| %>
-            <div class='list-group-item'>
-              <%= link_to project.keys.first, "/project/#{project.values[0][:id]}", class: 'btn btn-link' %>
+            <div class='list-group-item project-holder'>
+              <h4><%= link_to project.keys.first, "/project/#{project.values[0][:id]}" %></h4>
               <% if project.values[0][:jobs].count > 0 %>
                 <% project.values[0][:jobs].each do |job| %>
                   <div class='job-progress-holder'>
                     <div class='progress'>
-                      <div class='progress-bar' style='width: <%= job[1] %>%'>
-                        <%= link_to "#{job[0]} - #{job[1]}%", "https://make.crowdflower.com/jobs/#{job[0]}" %>
+                      <div class='progress-bar' style='width: <%= job[1] %>%' id='<%= job[0] %>-progress-bar'>
+                        <%= link_to job[0], "https://make.crowdflower.com/jobs/#{job[0]}" %>
                       </div>
                     </div>
                   </div>
                 <% end %>
               <% else %>
-                <p> This project has no jobs. </p>
+                <p class='placeholder'> This project has no jobs. </p>
               <% end %>
             </div>
           <% end %>

@@ -1,4 +1,3 @@
-require('stylesheets/projects/workflow.scss')
 require('projects/flo.js')
 
 $ ->

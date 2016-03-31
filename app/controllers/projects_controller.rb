@@ -3,6 +3,10 @@ class ProjectsController < ApplicationController
     @projects = Project.format_json_for_index.map { |project| { project.first => project.second } }
   end
 
+  def get_progress
+    render json: Project.format_json_for_index.map { |project| { project.first => project.second } }
+  end
+
   def show
     @project = Project.find(params[:id])
     @fields = @project.jobs.first.fields

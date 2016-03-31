@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   get 'projects/:id' => 'projects#show', as: :project
   get 'projects/new' => 'projects#new'
   post 'projects/create' => 'projects#create'
+
+  get 'project_progress' => 'projects#get_progress'
+
   get 'projects/:id/datasets/new' => 'projects#new_dataset', as: :new_dataset
   post 'projects/:id/datasets/new' => 'projects#create_dataset'
 
