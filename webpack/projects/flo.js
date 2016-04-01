@@ -129,8 +129,13 @@
 	  };
 
 	  Workflow.prototype.pendingRouteDefined = function(event, nodes) {
+	    var newRouteEvent, route;
 	    this.dehighlightNodes();
-	    return this.addRoute(new flo.Route(nodes.nodeA, nodes.nodeB));
+	    route = new flo.Route(nodes.nodeA, nodes.nodeB);
+	    this.addRoute(route);
+	    newRouteEvent = new createjs.Event('new_route_added');
+	    newRouteEvent['route'] = route;
+	    return this.stage.dispatchEvent(newRouteEvent);
 	  };
 
 	  Workflow.prototype.dehighlightNodes = function() {
@@ -292,7 +297,10 @@
 	  };
 
 	  Sprite.prototype.addChild = function(child) {
-	    return this.shape.addChild(child.shape);
+	    this.shape.addChild(child.shape);
+	    if (this.shape.stage) {
+	      return this.shape.stage.update();
+	    }
 	  };
 
 	  Sprite.prototype.on = function(event, func) {
