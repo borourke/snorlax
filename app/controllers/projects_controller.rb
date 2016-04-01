@@ -8,6 +8,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @job = Job.new
     @project = Project.find(params[:id])
     @jobs = @project.jobs
     @rules = @project.rules

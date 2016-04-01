@@ -14,9 +14,6 @@ class Rule < ActiveRecord::Base
   end
 
   def passes_comparison?(data)
-    puts data.attributes
-    puts self.operation
-    puts self.value
     data.value.send(self.operation, self.value)
   end
 end

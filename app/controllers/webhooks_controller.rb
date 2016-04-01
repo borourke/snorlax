@@ -1,6 +1,8 @@
 class WebhooksController < ApplicationController
   def receive_units
+    p "MADE IT!!!"
     payload = JSON.parse(params["payload"])
+    p payload
     unit_id = payload["data"]["snorlax_unit_id"]
     unit = Unit.find(unit_id)
     unit.update_unit_data(payload["results"])

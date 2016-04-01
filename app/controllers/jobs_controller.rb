@@ -13,13 +13,14 @@ class JobsController < ApplicationController
   end
 
   def create
-
+    Job.create(jobs_params)
+    redirect_to project_path(params[:id])
   end
 
   private
 
   def jobs_params
     params[:job][:project_id] = params[:id]
-    params.require(:job).permit(:alias)
+    params.require(:job).permit(:alias, :project_id)
   end
 end

@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   # Jobs
   get 'projects/:id/jobs/new' => 'jobs#new'
-  post 'projects/:id/jobs/new' => 'jobs#create'
+  post 'projects/:id/jobs/new' => 'jobs#create', as: :job_create
 
   # Rules
   get 'projects/:id/rules/new' => 'rules#new', as: :new_rule

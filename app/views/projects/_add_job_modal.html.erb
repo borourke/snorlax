@@ -5,9 +5,9 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Add Job</h4>
       </div>
-      <%= simple_form_for '' do |f| %>
+      <%= simple_form_for :job, url: job_create_path(@project.id) do |f| %>
         <div class="modal-body">
-          <%= f.select :job_id, @jobs.map(&:alias) %>
+          <%= f.text_field :alias %>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
