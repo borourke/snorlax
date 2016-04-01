@@ -1,4 +1,17 @@
-<%= form_for :dataset do |f| %>
-  File Path: <%= f.text_field :file_path %><br />
-  <%= f.submit %>
-<% end %>
+<div class='container-fluid'>
+  <div class='row'>
+    <div class="col-xs-4">
+      <%= image_tag('dreaming_snorlax') %>
+    </div>
+    <div class='col-xs-4'>
+      <h3> Upload a new Dataset </h3>
+      <%= simple_form_for :dataset do |f| %>
+        <%= f.input :file_path %>
+        <%= f.button :submit, class: 'btn btn-primary'%>
+      <% end %>
+    </div>
+    <div class="col-xs-4">
+      <%= image_tag('karate_snorlax') %>
+    </div>
+  </div>
+</div>
