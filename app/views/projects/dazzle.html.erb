@@ -3,6 +3,7 @@
     <div class="col-xs-6 col-xs-offset-3">
       <h3><%= @project.name %></h3>
       <div class="btn-group pull-right">
+        <%= link_to 'Upload Units', new_dataset_path(@project.id), class: 'btn btn-default' %>
         <button type='button' data-target='#add-job-modal' class='btn btn-primary' data-toggle='modal'>Add Job</button>
         <button type='button' data-target='#new-rule-modal' class='btn btn-success' data-toggle='modal'>Add Rule</button>
       </div>
