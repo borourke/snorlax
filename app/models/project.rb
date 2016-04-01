@@ -11,12 +11,12 @@ class Project < ActiveRecord::Base
     end
   end
 
-  def create_report
+  def generate_report
     unit_data = UnitData.where(project_id: self.id)
     units = Hash.new { |hash, key| hash[key] = {} }
-    unit_data.map! { |data| data.as_json }
+    unit_data = unit_data.as_json
     headers = unit_data.first.keys
-    CSV.open("/Users/borourke/Desktop/snorlax_report.csv", headers: headers, write_headers: true) do |out|
+    CSV.open("/Users/borourke/Desktop/snorlax_report.csv", "w", headers: headers, write_headers: true) do |out|
       unit_data.each do |data|
         out << data.values
       end
