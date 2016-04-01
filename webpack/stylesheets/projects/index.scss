@@ -22,4 +22,12 @@
       }
     }
   }
+  #projects-list {
+    transition:all 2s ease-in;
+    overflow: hidden;
+    height: 0px;
+  }
+  #projects-list:not(:empty) {
+    height: auto;
+  }
 }
