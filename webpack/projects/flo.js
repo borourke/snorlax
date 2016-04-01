@@ -73,7 +73,14 @@
 	    Workflow.__super__.constructor.call(this, this.id);
 	    this.bg.on('dblclick', this.dblclick);
 	    this.fg.on('pending_route_added', this.pendingRouteAdded);
+	    this.setup();
 	  }
+
+	  Workflow.prototype.setup = function() {
+	    var start;
+	    start = new flo.Start();
+	    return this.addChild(start);
+	  };
 
 	  Workflow.prototype.pendingRouteAdded = function(event) {
 	    this.pendingRoute = event.target._flo.pendingRoute;
@@ -115,7 +122,7 @@
 	    for (i = 0, len = ref.length; i < len; i++) {
 	      node = ref[i];
 	      node.highlight();
-	      node.shape.on('click', this.pendingRouteDefined, this, false, {
+	      node['listener'] = node.shape.on('click', this.pendingRouteDefined, this, false, {
 	        nodeA: this.pendingRoute.nodeA,
 	        nodeB: node
 	      });
@@ -139,7 +146,7 @@
 	    for (i = 0, len = ref.length; i < len; i++) {
 	      node = ref[i];
 	      node.dehighlight();
-	      node.shape.off('click');
+	      node.shape.off('click', node['listener']);
 	    }
 	    return this.stage.update();
 	  };
@@ -158,6 +165,7 @@
 	  Workflow.prototype["import"] = function(str) {
 	    var i, j, len, len1, node, nodes, results, route, routeObj;
 	    this.clear();
+	    this.setup();
 	    nodes = JSON.parse(str);
 	    for (i = 0, len = nodes.length; i < len; i++) {
 	      node = nodes[i];
