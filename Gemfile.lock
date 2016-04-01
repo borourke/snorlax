@@ -1,5 +1,5 @@
 GIT
-  remote: https://github.com/CrowdFlower/crowdkit.rb
+  remote: git@github.com:CrowdFlower/crowdkit.rb.git
   revision: dee6c4c598f19a7ece5915820794e2de09c35016
   specs:
     crowdkit (0.1.3)

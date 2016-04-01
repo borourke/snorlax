@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'crowdkit', git: "https://github.com/CrowdFlower/crowdkit.rb"
+gem 'crowdkit', git: "git@github.com:CrowdFlower/crowdkit.rb.git"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
