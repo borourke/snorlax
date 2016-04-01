@@ -15,9 +15,11 @@ class Unit < ActiveRecord::Base
 
   def send_to_next_jobs(job_id)
     job_alias = client.jobs.find(job_id).alias
-    next_jobs = project.rules.where(starting_job_id: job_alias).pluck(:ending_job_id)
-    next_jobs.each do |job|
-      client.units.create(job_id: job, data: format_data)
+    rules = project.rules.where(starting_job_id: job_alias)
+    rules.each do |rule|
+      if rule.unit_passes?(UnitData.where(unit_id: self.id))
+        client.units.create(job_id: rule.ending_job_id, data: format_data)
+      end
     end
   end
 
