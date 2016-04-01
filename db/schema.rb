@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160331205309) do
+ActiveRecord::Schema.define(version: 20160401173416) do
 
   create_table "datasets", force: :cascade do |t|
     t.string "file_path"
@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 20160331205309) do
     t.string  "job_type"
     t.integer "project_id"
     t.boolean "starting_job"
+    t.integer "x"
+    t.integer "y"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -34,8 +36,8 @@ ActiveRecord::Schema.define(version: 20160331205309) do
   end
 
   create_table "rules", force: :cascade do |t|
-    t.string  "starting_job_id"
-    t.string  "ending_job_id"
+    t.integer "starting_job_id"
+    t.integer "ending_job_id"
     t.text    "field"
     t.text    "value"
     t.integer "transformation_id"

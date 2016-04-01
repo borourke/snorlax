@@ -21,6 +21,6 @@ class JobsController < ApplicationController
 
   def jobs_params
     params[:job][:project_id] = params[:id]
-    params.require(:job).permit(:alias, :project_id)
+    params.require(:job).permit(:alias, :project_id, :x, :y)
   end
 end
