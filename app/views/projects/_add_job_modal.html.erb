@@ -8,6 +8,7 @@
       <%= simple_form_for :job, url: job_create_path(@project.id) do |f| %>
         <div class="modal-body">
           <%= f.text_field :alias %>
+          <%= f.input :starting_job, as: :boolean %>
           <%= f.hidden_field :x %>
           <%= f.hidden_field :y %>
         </div>
