@@ -57,6 +57,7 @@ class ProgressUpdater
     )
 
 $ ->
-  require('projects/pokeball')
   $progressUpdaters = $('#project-index-wrapper')
-  new ProgressUpdater($progressUpdaters) if $progressUpdaters.length > 0
+  if $progressUpdaters.length > 0
+    require('projects/pokeball')
+    new ProgressUpdater($progressUpdaters)
