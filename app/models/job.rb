@@ -4,7 +4,7 @@ class Job < ActiveRecord::Base
   def percent_complete
     client.jobs.find(self.alias).stats(:percent_complete)
   rescue
-    { percent_complete: rand(0..100) }
+    { percent_complete: 0 }
   end
 
   def self.format_percent_complete(aliases)
