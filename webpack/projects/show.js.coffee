@@ -13,7 +13,7 @@ $ ->
     $jobForm.on 'submit', (event) ->
       event.preventDefault()
       $form = $(event.currentTarget)
-      job.updateLabel($form.find('#_job_id').val())
+      job.updateLabel($form.find('#job_alias').val())
       $modal.modal('hide')
       $jobForm.off 'submit'
 
