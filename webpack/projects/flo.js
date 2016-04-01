@@ -82,7 +82,21 @@
 	  };
 
 	  Workflow.prototype.dblclick = function(event) {
-	    return this.addNode(new flo.Job('######', event.stageX, event.stageY));
+	    return this.addBlankJob(event.stageX, event.stageY);
+	  };
+
+	  Workflow.prototype.addBlankJob = function(x, y) {
+	    var blankJobEvent, job;
+	    job = new flo.Job('', x, y);
+	    this.addNode(job);
+	    blankJobEvent = new createjs.Event('blank_job_added');
+	    blankJobEvent['job'] = job;
+	    return this.stage.dispatchEvent(blankJobEvent);
+	  };
+
+	  Workflow.prototype.labelJob = function(job, label) {
+	    job.updateLabel(label);
+	    return this.stage.update();
 	  };
 
 	  Workflow.prototype.clear = function() {
@@ -264,15 +278,17 @@
 	    this.shape['_flo'] = this;
 	    this.bg = new createjs.Shape();
 	    this.shape.addChild(this.bg);
-	    if (this.name) {
-	      this.label = new flo.Label(this.name);
-	      this.shape.addChild(this.label.shape);
-	    }
+	    this.label = new flo.Label(this.name);
+	    this.shape.addChild(this.label.shape);
 	    this.draw();
 	  }
 
 	  Sprite.prototype.draw = function() {
-	    return this.bg.graphics.clear();
+	    this.bg.graphics.clear();
+	    if (this.name) {
+	      this.label.text = this.name;
+	      return this.label.draw();
+	    }
 	  };
 
 	  Sprite.prototype.addChild = function(child) {
@@ -296,24 +312,29 @@
 
 	flo.Label = (function() {
 	  function Label(text, options) {
-	    if (options == null) {
-	      options = {
-	        font: "14px Arial",
-	        color: "#000",
-	        align: "center",
-	        rotation: 0
-	      };
-	    }
-	    this.shape = new createjs.Text(text, options.font, options.color);
-	    if (options.rotation) {
-	      this.shape.rotation = options.rotation;
+	    this.text = text != null ? text : '';
+	    this.options = options != null ? options : {
+	      font: "14px Arial",
+	      color: "#000",
+	      align: "center",
+	      rotation: 0
+	    };
+	    this.shape = new createjs.Text(this.text, this.options.font, this.options.color);
+	    this.draw();
+	  }
+
+	  Label.prototype.draw = function() {
+	    this.shape.text = this.text;
+	    if (this.options.rotation) {
+	      this.shape.rotation = this.options.rotation;
 	      this.shape.x = 40;
 	      this.shape.y = 10;
-	    } else if (options.align === 'center') {
-	      this.shape.x = this.shape.getMeasuredWidth() / -2;
-	      this.shape.y = this.shape.getMeasuredHeight() / -2;
 	    }
-	  }
+	    if (this.options.align === 'center') {
+	      this.shape.x = this.shape.getMeasuredWidth() / -2;
+	      return this.shape.y = this.shape.getMeasuredHeight() / -2;
+	    }
+	  };
 
 	  return Label;
 
@@ -549,6 +570,11 @@
 
 	  Job.prototype.addRoute = function(route) {
 	    return this.addEdge(route);
+	  };
+
+	  Job.prototype.updateLabel = function(label) {
+	    this.name = label;
+	    return this.draw();
 	  };
 
 	  Job.prototype.routesTo = function() {
