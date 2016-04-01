@@ -1,10 +1,12 @@
 class ProjectsController < ApplicationController
+
   def index
-    @projects = Project.format_json_for_index.map { |project| { project.first => project.second } }
   end
 
-  def get_progress
-    render json: Project.format_json_for_index.map { |project| { project.first => project.second } }
+  def project_status
+    respond_to do |format|
+      format.json { @projects = Project.includes(:jobs).all }
+    end
   end
 
   def show

@@ -1,0 +1,11 @@
+<script type='text/template' id='job-template'>
+  <div class='job-progress-holder'>
+    <div class='progress'>
+      <div class='progress-bar' style='width: <%%= job.percent_complete.percent_complete %>%' id='<%%= job.alias %>-progress-bar'>
+        <a href='https://make.sandbox.cf3.us/jobs/<%%= job.alias %>'>
+          <%%= job.alias %>
+        </a>
+      </div>
+    </div>
+  </div>
+</script>

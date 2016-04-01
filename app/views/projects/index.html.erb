@@ -1,38 +1,21 @@
 <div class='container-fluid' id='project-index-wrapper'>
   <div class='row'>
     <div class='col-xs-10 col-xs-offset-1'>
-      <h3>Welcome to Snorlax, who sat on Mew and Gluestick</h3>
+      <h3>Welcome to SNORLAX</h3>
     </div>
   </div>
   <div class='row'>
     <div class='col-xs-10 col-xs-offset-1'>
-      <% if @projects.empty? %>
-        <p class='placeholder'>You don't have any projects. click <%= link_to 'here', projects_new_path %> to create one.</p>
-      <% else %>
-        <button type='button' data-target='#new-project-modal' class='btn btn-primary' data-toggle='modal'>New Project</button>
-        <hr>
-        <div class='list-group'>
-          <% @projects.each do |project| %>
-            <div class='list-group-item project-holder'>
-              <h4><%= link_to project.keys.first, project_path(project.values[0][:id]) %></h4>
-              <% if project.values[0][:jobs].count > 0 %>
-                <% project.values[0][:jobs].each do |job| %>
-                  <div class='job-progress-holder'>
-                    <div class='progress'>
-                      <div class='progress-bar' style='width: <%= job[1] %>%' id='<%= job[0] %>-progress-bar'>
-                        <%= link_to job[0], "https://make.crowdflower.com/jobs/#{job[0]}" %>
-                      </div>
-                    </div>
-                  </div>
-                <% end %>
-              <% else %>
-                <p class='placeholder'> This project has no jobs. </p>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
+      <button type='button' data-target='#new-project-modal' class='btn btn-primary' data-toggle='modal'>New Project</button>
+      <hr>
+      <div id="pokeball">
+        <p>Loading Project Status...</p>
+      </div>
+      <div class='list-group' id='projects-list'>
+      </div>
     </div>
   </div>
   <%= render 'new_project_modal' %>
+  <%= render 'project_template' %>
+  <%= render 'job_template' %>
 </div>
