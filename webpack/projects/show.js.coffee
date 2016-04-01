@@ -10,6 +10,8 @@ $ ->
     $modal.modal('show')
     job = event.job
     $jobForm = $('#add-job-modal form')
+    $jobForm.find('#job_x').val(Math.round(job.x))
+    $jobForm.find('#job_y').val(Math.round(job.y))
     $jobForm.on 'submit', (event) ->
       event.preventDefault()
       $form = $(event.currentTarget)
