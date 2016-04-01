@@ -1,7 +1,6 @@
 <h3><%= @project.name %></h3>
-<%= %>
-<%= %>
 <%= link_to 'Upload Units', new_dataset_path(@project.id) %>
+<%= link_to 'Generate Report', create_report_path(@project.id), method: :post %>
 <button type='button' data-target='#new-rule-modal' class='btn btn-primary' data-toggle='modal'>New Rule</button>
 
 <%= render partial: 'flowchart' %>

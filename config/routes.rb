@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   get 'projects/:id/datasets/new' => 'projects#new_dataset', as: :new_dataset
   post 'projects/:id/datasets/new' => 'projects#create_dataset'
+  get 'projects/:id/reports/new' => 'projects#new_report', as: :new_report
+  post 'projects/:id/reports/new' => 'projects#create_report', as: :create_report
 
   # Jobs
   get 'projects/:id/jobs/new' => 'jobs#new'

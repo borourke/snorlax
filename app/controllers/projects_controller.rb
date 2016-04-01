@@ -9,6 +9,12 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def create_report
+    project = Project.find(params[:id])
+    project.generate_report
+    redirect_to project_path(params[:id])
+  end
+
   def show
     @job = Job.new
     @project = Project.find(params[:id])
