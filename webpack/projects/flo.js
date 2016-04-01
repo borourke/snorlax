@@ -379,6 +379,17 @@
 	    Edge.__super__.constructor.call(this);
 	    this.nodeA.addEdge(this);
 	    this.nodeB.addEdge(this);
+	    this.offset = 0;
+	    setInterval((function(_this) {
+	      return function() {
+	        _this.offset -= 1;
+	        _this.bg.graphics.clear();
+	        _this.bg.graphics.setStrokeStyle(2).setStrokeDash([20, 5], _this.offset).beginStroke('#666').moveTo(_this.start.x, _this.start.y).lineTo(_this.end.x, _this.end.y);
+	        if (_this.bg.stage) {
+	          return _this.bg.stage.update();
+	        }
+	      };
+	    })(this), 50);
 	  }
 
 	  Edge.prototype.calc = function() {
@@ -402,7 +413,7 @@
 	  Edge.prototype.draw = function() {
 	    Edge.__super__.draw.call(this);
 	    this.calc();
-	    return this.bg.graphics.setStrokeStyle(2).beginStroke('#666').moveTo(this.start.x, this.start.y).lineTo(this.end.x, this.end.y);
+	    return this.bg.graphics.setStrokeStyle(2).setStrokeDash([20, 5], this.offset).beginStroke('#666').moveTo(this.start.x, this.start.y).lineTo(this.end.x, this.end.y);
 	  };
 
 	  return Edge;
