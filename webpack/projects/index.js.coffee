@@ -4,7 +4,12 @@ _ = require('underscore')
 class ProgressUpdater
   constructor: (@$container) ->
     @buildProjectTable()
-
+    $('#playsong').click( ->
+      $('#pokesong')[0].play();
+    )
+    $('#pausesong').click( ->
+      $('#pokesong')[0].pause();
+    )
 
   buildProjectTable: =>
     $.ajax(
