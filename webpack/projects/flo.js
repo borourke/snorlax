@@ -173,6 +173,10 @@
 	    results = [];
 	    for (j = 0, len1 = nodes.length; j < len1; j++) {
 	      node = nodes[j];
+	      console.log(node);
+	      if (node.start) {
+	        this.addRoute(new flo.Route(this.start, this.getNode(node.name)));
+	      }
 	      results.push((function() {
 	        var k, len2, ref, results1;
 	        ref = node.routes;
@@ -182,10 +186,7 @@
 	          routeObj = new flo.Route(this.getNode(node.name), this.getNode(route.name));
 	          this.addRoute(routeObj);
 	          if (route.gate) {
-	            this.addGate(route.gate, routeObj);
-	          }
-	          if (node.start) {
-	            results1.push(this.addRoute(new flo.Route(this.start, this.getNode(node.name))));
+	            results1.push(this.addGate(route.gate, routeObj));
 	          } else {
 	            results1.push(void 0);
 	          }
