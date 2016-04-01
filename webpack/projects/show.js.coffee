@@ -2,6 +2,7 @@ require('projects/flo.js')
 
 $ ->
   workflow = new flo.Workflow('flo')
+  workflow.import JSON.stringify($('#flo').data('flow'))
   #workflow.import('[{"name":"hackday1","routes":[],"x":194,"y":116},{"name":"hackday2","routes":[],"x":605,"y":171}]')
   workflow.stage.update()
 
@@ -13,7 +14,7 @@ $ ->
     $jobForm.find('#job_x').val(Math.round(job.x))
     $jobForm.find('#job_y').val(Math.round(job.y))
     $jobForm.on 'submit', (event) ->
-      event.preventDefault()
+      #event.preventDefault()
       $form = $(event.currentTarget)
       job.updateLabel($form.find('#job_alias').val())
       $modal.modal('hide')

@@ -19,4 +19,13 @@ class Job < ActiveRecord::Base
   def client
     @client ||= Crowdkit.new(access_token: "5URrBpcuVXAqNAs263sg", api_endpoint: "http://api.sandbox.cf3.us/v2")
   end
+
+  def flow
+    {
+      name: self.alias,
+      x: self.x,
+      y: self.y,
+      routes: []
+    }
+  end
 end

@@ -23,6 +23,7 @@ class ProjectsController < ApplicationController
     @rule = Rule.new
     @fields = @project.fields.flatten
     @operators = Rule.operators
+    @flow = @jobs.map(&:flow).to_json
   end
 
   def new
