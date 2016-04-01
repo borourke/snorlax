@@ -77,9 +77,8 @@
 	  }
 
 	  Workflow.prototype.setup = function() {
-	    var start;
-	    start = new flo.Start();
-	    return this.addChild(start);
+	    this.start = new flo.Start();
+	    return this.addChild(this.start);
 	  };
 
 	  Workflow.prototype.pendingRouteAdded = function(event) {
@@ -183,7 +182,10 @@
 	          routeObj = new flo.Route(this.getNode(node.name), this.getNode(route.name));
 	          this.addRoute(routeObj);
 	          if (route.gate) {
-	            results1.push(this.addGate(route.gate, routeObj));
+	            this.addGate(route.gate, routeObj);
+	          }
+	          if (node.start) {
+	            results1.push(this.addRoute(new flo.Route(this.start, this.getNode(node.name))));
 	          } else {
 	            results1.push(void 0);
 	          }

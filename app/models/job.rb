@@ -27,8 +27,12 @@ class Job < ActiveRecord::Base
       name: self.alias,
       x: self.x,
       y: self.y,
+      start: self.starting_job,
       routes: project.rules.where(starting_job_id: self.alias).pluck(:ending_job_id, :operation).map do |rule|
-        {name: rule[0], gate: rule[1]}
+        {
+          name: rule[0],
+          gate: rule[1]
+        }
       end
     }
   end
