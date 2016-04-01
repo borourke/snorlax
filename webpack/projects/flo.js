@@ -289,7 +289,11 @@
 	    this.shape['_flo'] = this;
 	    this.bg = new createjs.Shape();
 	    this.shape.addChild(this.bg);
-	    this.label = new flo.Label(this.name);
+	    this.label = new flo.Label(this.name, {
+	      font: "14px Arial",
+	      color: "#fff",
+	      align: "center"
+	    });
 	    this.shape.addChild(this.label.shape);
 	    this.draw();
 	  }
@@ -342,7 +346,7 @@
 	    if (this.options.rotation) {
 	      this.shape.rotation = this.options.rotation;
 	      this.shape.x = 40;
-	      this.shape.y = 10;
+	      this.shape.y = -20;
 	    }
 	    if (this.options.align === 'center') {
 	      this.shape.x = this.shape.getMeasuredWidth() / -2;
@@ -398,7 +402,7 @@
 	  Edge.prototype.draw = function() {
 	    Edge.__super__.draw.call(this);
 	    this.calc();
-	    return this.bg.graphics.beginStroke('black').moveTo(this.start.x, this.start.y).lineTo(this.end.x, this.end.y);
+	    return this.bg.graphics.setStrokeStyle(2).beginStroke('#666').moveTo(this.start.x, this.start.y).lineTo(this.end.x, this.end.y);
 	  };
 
 	  return Edge;
@@ -432,7 +436,7 @@
 
 	  Node.prototype.draw = function() {
 	    Node.__super__.draw.call(this);
-	    this.bg.graphics.beginStroke('black').beginFill('white').drawCircle(0, 0, this.radius);
+	    this.bg.graphics.beginStroke('#2e6da4').beginFill('#337ab7').drawCircle(0, 0, this.radius);
 	    if (this.shape.stage) {
 	      return this.shape.stage.update();
 	    }
@@ -484,7 +488,7 @@
 	    this.name = name;
 	    this.route = route;
 	    Gate.__super__.constructor.call(this);
-	    this.bg.graphics.beginStroke('black').beginFill('white').drawCircle(0, 0, 20);
+	    this.bg.graphics.beginStroke('#4cae4c').beginFill('#5cb85c').drawCircle(0, 0, 20);
 	    this.draw();
 	  }
 
@@ -627,18 +631,19 @@
 	  extend(Start, superClass);
 
 	  function Start() {
-	    this.radius = 0;
 	    Start.__super__.constructor.call(this, this.name, 0, 0);
 	  }
 
 	  Start.prototype.draw = function() {
 	    var label;
+	    this.radius = 0;
 	    Start.__super__.draw.call(this);
 	    this.y = 250;
 	    this.bg.y = -200;
-	    this.bg.graphics.beginFill('white').drawRect(0, 0, 50, 400);
+	    this.bg.graphics.beginStroke('#4cae4c').beginFill('#5cb85c').drawRect(0, 0, 50, 400);
 	    label = new flo.Label("Start", {
 	      font: "24px Arial",
+	      color: "#fff",
 	      rotation: 90
 	    });
 	    return this.addChild(label);
@@ -675,7 +680,7 @@
 	      this.shape.y = this.edge.end.y;
 	      angle = Math.atan2(this.edge.distY, this.edge.distX);
 	      this.shape.rotation = 180 * angle / Math.PI + 135;
-	      this.bg.graphics.beginStroke('#000');
+	      this.bg.graphics.setStrokeStyle(2).beginStroke('#666');
 	      this.bg.graphics.moveTo(0, 0).lineTo(this.size, 0);
 	      return this.bg.graphics.moveTo(0, 0).lineTo(0, this.size);
 	    }
