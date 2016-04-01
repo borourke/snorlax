@@ -1,4 +1,6 @@
 class Job < ActiveRecord::Base
+  belongs_to :project
+
   def percent_complete
     client.jobs.find(self.alias).stats(:percent_complete)
   rescue
@@ -25,7 +27,7 @@ class Job < ActiveRecord::Base
       name: self.alias,
       x: self.x,
       y: self.y,
-      routes: []
+      routes: project.rules.where(starting_job_id: self.id).pluck(:ending_job_id, :operation)
     }
   end
 end
