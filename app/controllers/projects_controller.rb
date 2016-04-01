@@ -30,8 +30,8 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    Project.create(projects_params)
-    redirect_to root_path
+    project = Project.create(projects_params)
+    redirect_to project_path(project)
   end
 
   def new_dataset
