@@ -1,4 +1,4 @@
-<%= simple_form_for :rule do |f| %>
+<%= simple_form_for :rule, url: create_rule_path(@project), remote: true do |f| %>
   <fieldset>
     <%= f.label :starting_job_id %>
     <%= f.select :starting_job_id, @project.jobs.pluck(:alias) %>
@@ -17,7 +17,7 @@
   </fieldset>
   <fieldset>
     <%= f.label :ending_job_id %>
-    <%= f.select :starting_job_id, @project.jobs.pluck(:alias) %>
+    <%= f.select :ending_job_id, @project.jobs.pluck(:alias) %>
   </fieldset>
   <%= f.submit %>
 <% end %>
