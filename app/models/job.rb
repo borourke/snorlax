@@ -17,6 +17,6 @@ class Job < ActiveRecord::Base
   end
 
   def client
-    @client ||= Crowdkit.new(access_token: "af574018a6b7360b924c210c41d1f263e264cf83", api_endpoint: "https://api.sandbox.cf3.us/v2")
+    @client ||= Crowdkit.new(access_token: "yLhxifNyfX6yvU2KDSS1", api_endpoint: "http://api.crowdflower.dev/v2")
   end
 end

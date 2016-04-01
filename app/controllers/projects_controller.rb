@@ -13,6 +13,9 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @jobs = @project.jobs
     @rules = @project.rules
+    @rule = Rule.new
+    @fields = @project.fields.flatten
+    @operators = Rule.operators
   end
 
   def new

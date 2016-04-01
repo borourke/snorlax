@@ -2,29 +2,37 @@ require('projects/flo.js')
 
 $ ->
   workflow = new flo.Workflow('flo')
-  jobA = new flo.Job('123456', 100, 200)
-  jobB = new flo.Job('234567', 400, 100)
-  jobC = new flo.Job('345678', 400, 300)
-  jobD = new flo.Job('4567890', 600, 200)
-  routeAB = new flo.Route(jobA, jobB)
-  routeAC = new flo.Route(jobA, jobC)
-  routeBD = new flo.Route(jobB, jobD)
-  routeCD = new flo.Route(jobC, jobD)
-  workflow.addNode(jobA)
-  workflow.addNode(jobB)
-  workflow.addNode(jobC)
-  workflow.addNode(jobD)
-  workflow.addRoute(routeAB)
-  workflow.addRoute(routeAC)
-  workflow.addRoute(routeBD)
-  workflow.addRoute(routeCD)
-  workflow.addGate('A', routeAB)
-  workflow.addGate('B', routeAC)
+  start = new flo.Start()
+  workflow.addChild(start)
+  #workflow.import('[{"name":"hackday1","routes":[],"x":194,"y":116},{"name":"hackday2","routes":[],"x":605,"y":171}]')
 
-  $('textarea').val workflow.export()
+  workflow.stage.on 'blank_job_added', (event) ->
+    $modal = $('#add-job-modal')
+    $modal.modal('show')
+    job = event.job
+    $jobForm = $('#add-job-modal form')
+    $jobForm.on 'submit', (event) ->
+      event.preventDefault()
+      $form = $(event.currentTarget)
+      job.updateLabel($form.find('#_job_id').val())
+      $modal.modal('hide')
+      $jobForm.off 'submit'
 
-  $('#flo_get').on 'click', ->
-    $('textarea').val workflow.export()
+  workflow.stage.on 'new_route_added', (event) ->
+    $modal = $('#new-rule-modal')
+    route = event.route
+    $modal.find('#rule_starting_job_id').val(route.nodeA.name)
+    $modal.find('#rule_ending_job_id').val(route.nodeB.name)
+    $modal.modal('show')
+    $routeForm = $('#new-rule-modal form')
+    $routeForm.on 'submit', (event) ->
+      #event.preventDefault()
+      $form = $(event.currentTarget)
+      operation = $form.find('#rule_operation').val()
+      if operation
+        route.addGate(operation[0])
+      $modal.modal('hide')
+      $routeForm.off 'submit'
 
-  $('#flo_put').on 'click', ->
-    workflow.import $('textarea').val()
+  $('#export_chart').on 'click', ->
+    console.log workflow.export()

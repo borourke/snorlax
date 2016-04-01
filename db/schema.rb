@@ -34,8 +34,8 @@ ActiveRecord::Schema.define(version: 20160331205309) do
   end
 
   create_table "rules", force: :cascade do |t|
-    t.integer "starting_job_id"
-    t.integer "ending_job_id"
+    t.string  "starting_job_id"
+    t.string  "ending_job_id"
     t.text    "field"
     t.text    "value"
     t.integer "transformation_id"
