@@ -4,7 +4,7 @@ $ ->
   workflow = new flo.Workflow('flo')
   start = new flo.Start()
   workflow.addChild(start)
-  workflow.import('[{"name":"hackday1","routes":[],"x":194,"y":116},{"name":"hackday2","routes":[],"x":605,"y":171}]')
+  #workflow.import('[{"name":"hackday1","routes":[],"x":194,"y":116},{"name":"hackday2","routes":[],"x":605,"y":171}]')
 
   workflow.stage.on 'blank_job_added', (event) ->
     $modal = $('#add-job-modal')

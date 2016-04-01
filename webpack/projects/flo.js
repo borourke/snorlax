@@ -94,11 +94,6 @@
 	    return this.stage.dispatchEvent(blankJobEvent);
 	  };
 
-	  Workflow.prototype.labelJob = function(job, label) {
-	    job.updateLabel(label);
-	    return this.stage.update();
-	  };
-
 	  Workflow.prototype.clear = function() {
 	    this.routes = [];
 	    return Workflow.__super__.clear.call(this);
@@ -292,15 +287,15 @@
 	    this.bg.graphics.clear();
 	    if (this.name) {
 	      this.label.text = this.name;
-	      return this.label.draw();
+	      this.label.draw();
+	    }
+	    if (this.shape.stage) {
+	      return this.shape.stage.update();
 	    }
 	  };
 
 	  Sprite.prototype.addChild = function(child) {
-	    this.shape.addChild(child.shape);
-	    if (this.shape.stage) {
-	      return this.shape.stage.update();
-	    }
+	    return this.shape.addChild(child.shape);
 	  };
 
 	  Sprite.prototype.on = function(event, func) {
@@ -426,7 +421,10 @@
 
 	  Node.prototype.draw = function() {
 	    Node.__super__.draw.call(this);
-	    return this.bg.graphics.beginStroke('black').beginFill('white').drawCircle(0, 0, this.radius);
+	    this.bg.graphics.beginStroke('black').beginFill('white').drawCircle(0, 0, this.radius);
+	    if (this.shape.stage) {
+	      return this.shape.stage.update();
+	    }
 	  };
 
 	  Node.prototype.addEdge = function(edge) {
@@ -618,13 +616,16 @@
 	  extend(Start, superClass);
 
 	  function Start() {
+	    this.radius = 0;
 	    Start.__super__.constructor.call(this, this.name, 0, 0);
 	  }
 
 	  Start.prototype.draw = function() {
 	    var label;
 	    Start.__super__.draw.call(this);
-	    this.bg.graphics.beginFill('white').drawRect(0, 0, 40, 400);
+	    this.y = 250;
+	    this.bg.y = -200;
+	    this.bg.graphics.beginFill('white').drawRect(0, 0, 50, 400);
 	    label = new flo.Label("Start", {
 	      font: "24px Arial",
 	      rotation: 90
@@ -634,7 +635,7 @@
 
 	  return Start;
 
-	})(flo.Node);
+	})(flo.Job);
 
 
 /***/ },
