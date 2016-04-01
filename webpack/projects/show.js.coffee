@@ -3,7 +3,7 @@ require('projects/flo.js')
 $ ->
   workflow = new flo.Workflow('flo')
   workflow.import JSON.stringify($('#flo').data('flow'))
-  #workflow.import('[{"name":"hackday1","routes":[],"x":194,"y":116},{"name":"hackday2","routes":[],"x":605,"y":171}]')
+  #workflow.import('[{"name":"hackday1","routes":[{"name":"hackday2","gate":"e"}],"x":194,"y":116},{"name":"hackday2","routes":[],"x":605,"y":171}]')
   workflow.stage.update()
 
   workflow.stage.on 'blank_job_added', (event) ->

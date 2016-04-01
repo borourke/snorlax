@@ -180,7 +180,7 @@
 	        results1 = [];
 	        for (k = 0, len2 = ref.length; k < len2; k++) {
 	          route = ref[k];
-	          routeObj = new flo.Route(this.getNode(node.name), this.getNode(route.node));
+	          routeObj = new flo.Route(this.getNode(node.name), this.getNode(route.name));
 	          this.addRoute(routeObj);
 	          if (route.gate) {
 	            results1.push(this.addGate(route.gate, routeObj));
