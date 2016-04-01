@@ -1,0 +1,51 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-6 col-xs-offset-3">
+      <h3><%= @project.name %></h3>
+      <div class="btn-group pull-right">
+        <button type='button' data-target='#add-job-modal' class='btn btn-primary' data-toggle='modal'>Add Job</button>
+        <button type='button' data-target='#new-rule-modal' class='btn btn-success' data-toggle='modal'>Add Rule</button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-2 col-xs-offset-3">
+      <h4>Jobs</h4>
+      <table class="table table-striped">
+        <tr>
+          <th>Job Alias</th>
+          <th>Starting Job?</th>
+        </tr>
+        <% @jobs.each do |job| %>
+          <tr>
+            <td><%= job.alias %></td>
+            <td><%= job.starting_job ? 'Yes' : 'No' %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+    <div class="col-xs-4">
+      <h4>Rules</h4>
+      <table class="table table-striped">
+        <tr>
+          <th>Start Job</th>
+          <th>End Job</th>
+          <th>Field</th>
+          <th>Operator</th>
+          <th>Value</th>
+        </tr>
+        <% @rules.each do |rule| %>
+          <tr>
+            <td><%= rule.starting_job_id %></td>
+            <td><%= rule.ending_job_id %></td>
+            <td><%= rule.field %></td>
+            <td><%= rule.operation %></td>
+            <td><%= rule.value %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
+<%= render 'add_job_modal' %>
+<%= render 'new_rule_modal' %>

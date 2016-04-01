@@ -44,6 +44,17 @@ class ProjectsController < ApplicationController
     redirect_to project_path(project.id)
   end
 
+
+  def dazzle
+    @job = Job.new
+    @project = Project.find(params[:id])
+    @jobs = @project.jobs
+    @rules = @project.rules
+    @rule = Rule.new
+    @fields = @project.fields.flatten
+    @operators = Rule.operators
+  end
+
   private
 
   def projects_params
